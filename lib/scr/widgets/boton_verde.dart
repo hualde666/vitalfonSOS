@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/pages/botonrojo_page.dart';
 
 import 'package:piproy/scr/providers/provider_pref.dart';
 import 'package:provider/provider.dart';
@@ -19,11 +20,12 @@ Widget botonBackHeader(BuildContext context, String pagina) {
   }
   return GestureDetector(
     onTap: () {
-      // if (pagina == 'Configurar') {
-      //   Navigator.pushReplacement(
-      //       context, MaterialPageRoute(builder: (context) => Home2Page()));
-      // } else {
-      Navigator.pop(context);
+      if (pagina == 'Configurar') {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => BotonRojoPage()));
+      } else {
+        Navigator.pop(context);
+      }
     },
     child: Container(
       // child: Image(

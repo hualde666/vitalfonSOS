@@ -36,7 +36,7 @@ class _MensajesPermisosState extends State<MensajesPermisos> {
                       height: 10,
                     ),
                     Text(
-                      'Para que el usuario pueda enviar el mensaje SOS en caso de emergencia, vitalfon necesita autorización para enviar mensaje de texto (SMS).',
+                      'Para que vitalfonSOS pueda enviar el mensaje SOS en caso de emergencia, necesita autorización para enviar mensaje de texto (SMS).',
                       textAlign: TextAlign.justify,
                       style: TextStyle(
                           fontStyle: FontStyle.italic,

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/pages/botonrojo_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:flutter_sms/flutter_sms.dart';
 import 'package:geolocator/geolocator.dart';
@@ -33,8 +34,8 @@ class _ResumenEnvioPageState extends State<ResumenEnvioPage> {
           _remainingTime--;
         } else {
           _timer.cancel();
-
-          Navigator.pop(context);
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => BotonRojoPage()));
         }
       });
     });

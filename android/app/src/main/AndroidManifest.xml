@@ -3,7 +3,7 @@
    <application
         
         
-        android:label="vitalfon"
+        android:label="vitalfonSOS"
         android:icon="@mipmap/launcher_icon">
          <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyDCxqXm5MCzyPTyefAerOYPMlsJx1IjOtY"/>
@@ -45,8 +45,8 @@
                  <action android:name="android.intent.action.MAIN"/>
                  <category android:name="android.intent.category.LAUNCHER"/>
                  <!--   hace que la app sea launcher -->
-                  <category android:name="android.intent.category.HOME" />
-                 <category android:name="android.intent.category.DEFAULT" /> 
+                  <!-- <category android:name="android.intent.category.HOME" />
+                 <category android:name="android.intent.category.DEFAULT" />  -->
    
             </intent-filter>
            

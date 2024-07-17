@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/models/contactos_modelo.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 
-
 import 'package:piproy/scr/widgets/agrega_contacto_mp.dart';
 
 import 'package:piproy/scr/widgets/elimina_cotacto_grupo.dart';
@@ -80,7 +79,7 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
                                   context,
                                   widget.contacto,
                                   grupo,
-                                  widget.envio,
+                                  false, // widget.envio,
                                   widget.eliminar,
                                   widget.tipo)
                               : Container(),
@@ -150,19 +149,14 @@ Widget _configurarContacto(BuildContext context, ContactoDatos contacto,
                   ),
                 ))
             : Container(),
-        envio && eliminar
+        eliminar
             ? SizedBox(
                 width: 50,
               )
             : Container(),
         GestureDetector(
             onTap: () {
-              if (envio) {
-                if (grupo != 'Todos') {
-                  eliminarContactoGrupo(context, grupo, contacto);
-                }
-                // eliminar contacto del grupo
-              }
+              eliminarContactoGrupo(context, grupo, contacto);
             },
             child: eliminar && pref.modoConfig
                 ? Container(

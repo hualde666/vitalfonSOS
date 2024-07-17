@@ -33,7 +33,7 @@ class _InstalacionPageState extends State<InstalacionPage> {
                     height: 10,
                   ),
                   Text(
-                    'Para definir los contactos que recibirán el mensaje de emergencia y facilitar el acceso a los contactos mas importantes para el usuario, vitalfon necesita acceder a tus contactos.',
+                    'Para definir los contactos que recibirán el mensaje y la llamada de emergencia, vitalfonSOS necesita acceder a tus contactos.',
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                         fontStyle: FontStyle.italic,

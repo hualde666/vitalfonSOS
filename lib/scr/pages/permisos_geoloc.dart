@@ -34,7 +34,7 @@ class _GeoPermisosState extends State<GeoPermisos> {
                             height: 10,
                           ),
                           Text(
-                            ' Para poder enviar la ubicación del usuario, en caso de emergencia, vitalfon necesita acceso a su localización. Vitalfon solo la usará al tocar el botón de emergencia.',
+                            ' Para poder enviar la ubicación del usuario, en caso de emergencia, vitalfonSOS necesita acceso a su localización. VitalfonSOS solo la usará al tocar el botón de emergencia.',
                             textAlign: TextAlign.justify,
                             style: TextStyle(
                                 fontStyle: FontStyle.italic,

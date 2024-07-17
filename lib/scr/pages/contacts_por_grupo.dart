@@ -179,7 +179,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
                 height: 5,
               ),
               Text(
-                ' Grupo: ' + grupo,
+                ' Contactos de Emergencia ',
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                     color: Theme.of(context).primaryColor, fontSize: 25),
