@@ -40,7 +40,7 @@ class AyudaMensajeEmergenciaPage extends StatelessWidget {
             ),
             AyudaParrafo(
               texto:
-                  '    El app vitalfon incluye originalmente un mensaje genérico.',
+                  '    El app vitalfonSOS incluye originalmente un mensaje genérico.',
             ),
             SizedBox(
               height: 10,

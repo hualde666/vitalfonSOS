@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/pages/desbloqueo.dart';
+import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
 
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../providers/provider_pref.dart';
 
 import 'package:piproy/scr/models/api_tipos.dart';
@@ -129,6 +132,65 @@ class ConfiguracionPage extends StatelessWidget {
                           builder: (context) => ContactLlamadaEmrgencia()));
                 }
               }),
+          Divider(
+            height: 10,
+            color: Theme.of(context).primaryColor,
+          ),
+          ListTile(
+              leading: Icon(
+                Icons.web_sharp,
+                size: 40.0,
+                color: pref.modoConfig
+                    ? Theme.of(context).primaryColor
+                    : colorBloqueo,
+              ),
+              title: Text('www.vitalfon.com',
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: pref.modoConfig
+                        ? Theme.of(context).primaryColor
+                        : colorBloqueo,
+                  )),
+              onTap: () async {
+                if (pref.modoConfig) {
+                  Uri url = Uri.parse('https://www.vitalfon.com');
+                  await launchUrl(url);
+                }
+                // if (await canLaunchUrlString('https://www.com.proy.vitalfon')) {
+                //   await launchUrlString('https://www.com.proy.vitalfon');
+                // }
+              } // paginaWep,
+              ),
+          Divider(
+            height: 10,
+            color: Theme.of(context).primaryColor,
+          ),
+          ListTile(
+            leading: Icon(
+              pref.modoConfig ? Icons.lock_open : Icons.lock_outline,
+              size: 40.0,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text(
+                pref.modoConfig
+                    ? 'Bloquear Configuración'
+                    : 'Desbloquear Configuración',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Theme.of(context).primaryColor,
+                )),
+            onTap: () {
+              if (pref.modoConfig) {
+                final pref = Provider.of<Preferencias>(context, listen: false);
+                pref.modoConfig = !pref.modoConfig;
+                SharedPref().modoConfig = pref.modoConfig;
+                // onPress();
+              } else {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Desbloqueo()));
+              }
+            },
+          ),
         ]),
       ),
     );

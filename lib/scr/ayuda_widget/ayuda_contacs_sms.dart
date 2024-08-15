@@ -47,13 +47,6 @@ class AyudaContactosSms extends StatelessWidget {
             ),
             AyudaParrafo(
               texto:
-                  '    El app vitalfon creará un grupo de  "Emergencia" con estos contactos. Este grupo podrá ser enviado a la pantalla de inicio pulsando la flecha azul.',
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            AyudaParrafo(
-              texto:
                   '    El mensaje solo será enviado a teléfonos móviles. El 112 o el 911 no pueden recibir mensajes SMS.',
             ),
             SizedBox(

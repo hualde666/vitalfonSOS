@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:piproy/scr/pages/ayuda.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+import 'package:piproy/scr/providers/provider_pref.dart';
 
 import 'package:piproy/scr/widgets/header_app.dart';
+import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 
 // import '../providers/provider_pref.dart';
@@ -74,43 +76,43 @@ class AyudaNuevaPage extends StatelessWidget {
             height: 10,
             color: Colors.black54,
           ),
-          ItemConfig(
-            icon: Icons.groups,
-            texto: 'Establecer contactos en la pantalla principal',
-            onPress: Ayuda(pagina: 'Contactos'),
-          ),
-          Divider(
-            height: 10,
-            color: Colors.black54,
-          ),
-          ItemConfig(
-            icon: Icons.app_registration,
-            texto: 'Establecer aplicaciones en la pantalla principal',
-            onPress: Ayuda(pagina: 'Aplicaciones'),
-          ),
-          Divider(
-            height: 10,
-            color: Colors.black54,
-          ),
-          ItemConfig(
-            icon: Icons.engineering,
-            texto:
-                'Habilitar o deshabilitar elementos en la pantalla principal',
-            onPress: Ayuda(pagina: 'Habilitar o Deshabilitar Elementos'),
-          ),
-          Divider(
-            height: 10,
-            color: Colors.black54,
-          ),
-          ItemConfig(
-            icon: Icons.palette,
-            texto: 'Color de vitalfon',
-            onPress: Ayuda(pagina: 'Color de vitalfon'),
-          ),
-          Divider(
-            height: 10,
-            color: Colors.black54,
-          ),
+          // ItemConfig(
+          //   icon: Icons.groups,
+          //   texto: 'Establecer contactos en la pantalla principal',
+          //   onPress: Ayuda(pagina: 'Contactos'),
+          // ),
+          // Divider(
+          //   height: 10,
+          //   color: Colors.black54,
+          // ),
+          // ItemConfig(
+          //   icon: Icons.app_registration,
+          //   texto: 'Establecer aplicaciones en la pantalla principal',
+          //   onPress: Ayuda(pagina: 'Aplicaciones'),
+          // ),
+          // Divider(
+          //   height: 10,
+          //   color: Colors.black54,
+          // ),
+          // ItemConfig(
+          //   icon: Icons.engineering,
+          //   texto:
+          //       'Habilitar o deshabilitar elementos en la pantalla principal',
+          //   onPress: Ayuda(pagina: 'Habilitar o Deshabilitar Elementos'),
+          // ),
+          // Divider(
+          //   height: 10,
+          //   color: Colors.black54,
+          // ),
+          // ItemConfig(
+          //   icon: Icons.palette,
+          //   texto: 'Color de vitalfon',
+          //   onPress: Ayuda(pagina: 'Color de vitalfon'),
+          // ),
+          // Divider(
+          //   height: 10,
+          //   color: Colors.black54,
+          // ),
           ItemConfig(
             icon: Icons.email,
             texto: 'Contactenos',
@@ -138,20 +140,20 @@ class AyudaNuevaPage extends StatelessWidget {
             height: 10,
             color: Colors.black54,
           ),
-          ItemConfig(
-            icon: Icons.delete_forever_outlined,
-            texto: 'Inicializar vitalfon',
-            onPress: Ayuda(pagina: 'Inicializar'),
-          ),
-          Divider(
-            height: 10,
-            color: Colors.black54,
-          ),
-          ItemConfig(
-            icon: Icons.logout,
-            texto: 'Salir de vitalfon',
-            onPress: Ayuda(pagina: 'Salir de vitalfon'),
-          ),
+          // ItemConfig(
+          //   icon: Icons.delete_forever_outlined,
+          //   texto: 'Inicializar vitalfon',
+          //   onPress: Ayuda(pagina: 'Inicializar'),
+          // ),
+          // Divider(
+          //   height: 10,
+          //   color: Colors.black54,
+          // ),
+          // ItemConfig(
+          //   icon: Icons.logout,
+          //   texto: 'Salir de vitalfon',
+          //   onPress: Ayuda(pagina: 'Salir de vitalfon'),
+          // ),
         ]),
       ),
     );
@@ -167,24 +169,28 @@ class ItemConfig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  final pref = Provider.of<Preferencias>(context);
-
+    final pref = Provider.of<Preferencias>(context);
+    final colorBloqueo = Colors.black26;
     return ListTile(
-      leading: Icon(icon,
-          size: 40.0, color: Colors.black54 //Theme.of(context).primaryColor,
-          ),
+      leading: Icon(
+        icon,
+        size: 40.0,
+        color: pref.modoConfig
+            ? Theme.of(context).primaryColor
+            : colorBloqueo, //Theme.of(context).primaryColor,
+      ),
       title: Text(texto,
           style: TextStyle(
             fontSize: 25,
             fontStyle: FontStyle.italic,
-            color: Colors.black54,
+            color:
+                pref.modoConfig ? Theme.of(context).primaryColor : colorBloqueo,
           )), //Theme.of(context).primaryColor)),
       onTap: () {
-        ///  if (pref.modoConfig) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => onPress));
-        // onPress();
-        //  }
+        if (pref.modoConfig) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => onPress));
+        }
       },
     );
   }

@@ -40,7 +40,7 @@ class AyudaConfigurarPage extends StatelessWidget {
             ),
             AyudaParrafo(
               texto:
-                  '    Comience configurando el mensaje de emergencia y luego siga el orden de las secciones que aparecen en Configuración.',
+                  '    Comience configurando el mensaje de emergencia y luego seleccione los contatos que recibiran el mensaje y la llamada.',
             ),
             SizedBox(
               height: 10,
