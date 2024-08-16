@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:piproy/scr/models/contactos_modelo.dart';
 import 'package:piproy/scr/pages/configuracion_page.dart';
@@ -9,10 +12,6 @@ import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/provider_pref.dart';
-
-import 'package:provider/provider.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../funciones/url_funciones.dart';
 import '../models/api_tipos.dart';
@@ -70,6 +69,7 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
     return SafeArea(
       child: Scaffold(
         appBar: headerAppSos(context),
+        //backgroundColor: Colors.black,
         body: FutureBuilder(
             future: obtenerListaGrupo(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -148,7 +148,8 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
   Widget botonExit() {
     return GestureDetector(
       onTap: () {
-        SystemNavigator.pop();
+        exit(0);
+        //SystemNavigator.pop();
         // Navigator.pushReplacement(
         //     context, MaterialPageRoute(builder: (context) => Home2Page()));
       },
@@ -185,7 +186,7 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
 conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
   final pref = Provider.of<Preferencias>(context);
   // double width = MediaQuery.of(context).size.width / 3;
-  double height = (MediaQuery.of(context).size.height * 0.60);
+  double height = (MediaQuery.of(context).size.height * 0.80);
   return SingleChildScrollView(
     child: Center(
       child: Container(
@@ -195,18 +196,8 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              child: Text(
-                'Enviar mensaje de emergencia y llamar a  contactos establecidos',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 35.0,
-                ),
-              ),
-            ),
             SizedBox(
-              height: 40,
+              height: 20,
             ),
             GestureDetector(
               onTap: () async {
@@ -243,15 +234,28 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
                 child: Center(
                   child: Text('Enviar',
                       style: TextStyle(
-                        fontSize: 50.0,
-                        color: //pref.paleta == '4'
-                            //?
-                            Theme.of(context).primaryColor,
-                        // : Colors.white //Colors.black,
-                      )),
+                          fontSize: 50.0,
+                          color: //pref.paleta == '4'
+                              //?
+                              // Theme.of(context).primaryColor,
+                              Colors.white //Colors.black,
+                          )),
                 ),
               ),
-            )
+            ),
+            SizedBox(
+              height: 70,
+            ),
+            Container(
+              child: Text(
+                'Enviar mensaje de emergencia y llamar a  contactos establecidos',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 30.0,
+                ),
+              ),
+            ),
           ],
         ),
       ),

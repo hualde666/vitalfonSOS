@@ -264,60 +264,7 @@ class _ContactoState extends State<Contacto> {
   Widget build(BuildContext context) {
     final pref = Provider.of<Preferencias>(context);
     return GestureDetector(
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-        padding: EdgeInsets.only(left: 4),
-        width: double.infinity,
-        height: 140.0,
-        decoration: BoxDecoration(
-            color: widget.apiProvider.categoryContact[widget.grupo]!
-                    .contains(widget.contactoSelec)
-                ? pref.backgroundColor
-                : pref.backgroundColor.withOpacity(0.3), //Colors.grey[700],
-            borderRadius: BorderRadius.circular(60.0),
-            border: Border.all(color: Theme.of(context).primaryColor)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            AvatarContacto(widget.contactoSelec),
-            SizedBox(
-              width: 5,
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                      child: Text(widget.contactoSelec.nombre,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: widget.apiProvider
-                                      .categoryContact[widget.grupo]!
-                                      .contains(widget.contactoSelec)
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context)
-                                      .primaryColor
-                                      .withOpacity(0.3),
-                              fontSize: 30))),
-                  Center(
-                      child: Text(widget.contactoSelec.telefono,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: widget.apiProvider
-                                      .categoryContact[widget.grupo]!
-                                      .contains(widget.contactoSelec)
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context)
-                                      .primaryColor
-                                      .withOpacity(0.3),
-                              fontSize: 25)))
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      child: TarjetaContacto(widget: widget, pref: pref),
       onTap: () {
         if (widget.apiProvider.categoryContact[widget.grupo]!
             .contains(widget.contactoSelec)) {
@@ -340,6 +287,75 @@ class _ContactoState extends State<Contacto> {
         }
         setState(() {});
       },
+    );
+  }
+}
+
+class TarjetaContacto extends StatelessWidget {
+  const TarjetaContacto({
+    super.key,
+    required this.widget,
+    required this.pref,
+  });
+
+  final Contacto widget;
+  final Preferencias pref;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      padding: EdgeInsets.only(left: 4),
+      width: double.infinity,
+      height: 120.0,
+      decoration: BoxDecoration(
+          color: widget.apiProvider.categoryContact[widget.grupo]!
+                  .contains(widget.contactoSelec)
+              ? pref.backgroundColor
+              : pref.backgroundColor.withOpacity(0.3), //Colors.grey[700],
+          borderRadius: BorderRadius.circular(60.0),
+          border: Border.all(color: Theme.of(context).primaryColor)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          AvatarContacto(widget.contactoSelec),
+          SizedBox(
+            width: 5,
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                    child: Text(widget.contactoSelec.nombre,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: widget
+                                    .apiProvider.categoryContact[widget.grupo]!
+                                    .contains(widget.contactoSelec)
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.3),
+                            fontSize: 30))),
+                Center(
+                    child: Text(widget.contactoSelec.telefono,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: widget
+                                    .apiProvider.categoryContact[widget.grupo]!
+                                    .contains(widget.contactoSelec)
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.3),
+                            fontSize: 25)))
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

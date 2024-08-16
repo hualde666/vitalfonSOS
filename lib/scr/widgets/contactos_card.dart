@@ -52,7 +52,7 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
               borderRadius: BorderRadius.circular(60.0),
               border: Border.all(color: Theme.of(context).primaryColor)),
           //color: Colors.black,
-          height: oneTap ? 420 : 120,
+          height: 120,
           width: double.infinity,
           margin: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
           padding: EdgeInsets.only(left: 4),
@@ -93,32 +93,7 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
               Container(),
             ],
           )),
-      onTap: () async {
-        // if (widget.tipo != 'MPA' && widget.tipo != 'MPB') {
-        //   oneTap = !oneTap;
-        //   setState(() {});
-        // } else {
-        //   if (widget.tipo == 'MPA') {
-        //     if (activoDatos) {
-        //       final ContactoDatos _contacto = await contactosProvaider
-        //           .obtenerContacto(widget.contacto.nombre);
-
-        //       /// *** llamada desde el contacto
-        //       if (_contacto.telefono != '') {
-        //         llamar(_contacto.telefono);
-        //       }
-        //     }
-        //     /* llamar por telefono*/
-        //   } else if (widget.tipo == 'MPB') {
-        //     // ** ir a contacto Whastappp
-        //     final ContactoDatos _contacto = await contactosProvaider
-        //         .obtenerContacto(widget.contacto.nombre);
-        //     if (_contacto.telefono != "") {
-        //       abrirWhatsapp(_contacto.telefono, '');
-        //     }
-        //   }
-        // }
-      },
+      onTap: () async {},
     );
   }
 }

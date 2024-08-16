@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/models/contactos_modelo.dart';
+
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
+
+import 'package:piproy/scr/widgets/contacto.dart';
 
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
 import 'package:provider/provider.dart';
@@ -60,7 +63,7 @@ class _ContactLlamadaEmrgenciaState extends State<ContactLlamadaEmrgencia> {
                         List<Widget> listaContact = List.generate(
                             snapshot.data.length,
                             (i) => Contacto(
-                                contactoSelec: snapshot.data[i],
+                                contacto: snapshot.data[i],
                                 apiProvider: apiProvider,
                                 grupo: grupo));
                         if (listaContact.length == 0) {
@@ -87,13 +90,6 @@ class _ContactLlamadaEmrgenciaState extends State<ContactLlamadaEmrgencia> {
                             //),
                           );
                         }
-
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     FocusScope.of(context)
-                        //         .requestFocus(new FocusNode());
-                        //   },
-                        //   child:
                       } else {
                         return Container(
                           child: Center(
@@ -141,12 +137,12 @@ class _ContactLlamadaEmrgenciaState extends State<ContactLlamadaEmrgencia> {
 
 class Contacto extends StatefulWidget {
   const Contacto({
-    required this.contactoSelec,
+    required this.contacto,
     required this.apiProvider,
     required this.grupo,
   });
 
-  final ContactoDatos contactoSelec;
+  final ContactoDatos contacto;
   final AplicacionesProvider apiProvider;
   final String grupo;
 
@@ -158,33 +154,15 @@ class _ContactoState extends State<Contacto> {
   @override
   Widget build(BuildContext context) {
     final pref = Provider.of<Preferencias>(context);
-
+    final bool seleccionado =
+        widget.contacto.telefono == SharedPref().telefonoEmergencia;
     return GestureDetector(
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-        width: double.infinity,
-        height: 96.0,
-        decoration: BoxDecoration(
-            color: widget.contactoSelec.telefono == pref.telefonoEmergencia
-                ? pref.backgroundColor
-                : pref.backgroundColor.withOpacity(0.3), //Colors.grey[700],
-            borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: Theme.of(context).primaryColor)),
-        child: Center(
-            child: Text(widget.contactoSelec.nombre,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color:
-                        widget.contactoSelec.telefono == pref.telefonoEmergencia
-                            ? Theme.of(context).primaryColor
-                            : Theme.of(context).primaryColor.withOpacity(0.3),
-                    fontSize: 30))),
-      ),
+      child: WidgetContacto(widget: widget, seleccionado: seleccionado),
       onTap: () {
-        if (widget.contactoSelec.telefono != pref.telefonoEmergencia) {
+        if (widget.contacto.telefono != pref.telefonoEmergencia) {
           /// ********* cambio el telefono de emergencia
-          pref.telefonoEmergencia = widget.contactoSelec.telefono;
-          SharedPref().telefonoEmergencia = widget.contactoSelec.telefono;
+          pref.telefonoEmergencia = widget.contacto.telefono;
+          SharedPref().telefonoEmergencia = widget.contacto.telefono;
         } else {
           pref.eliminarLLamadaEmergencia();
           pref.telefonoEmergencia = "";

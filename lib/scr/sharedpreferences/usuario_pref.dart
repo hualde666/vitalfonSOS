@@ -19,7 +19,8 @@ class SharedPref {
     WidgetsFlutterBinding.ensureInitialized();
 
     _pref = await SharedPreferences.getInstance();
-    telefonoEmergencia = "";
+    telefonoEmergencia =
+        _pref.getString('telefonoEmergencia') ?? _telefonoEmergencia;
   }
 
   set telefonoEmergencia(String nuevoTelefono) {
