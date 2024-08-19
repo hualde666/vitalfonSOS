@@ -231,15 +231,30 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
                         offset: Offset(2, 5),
                       ),
                     ]),
-                child: Center(
-                  child: Text('Enviar',
-                      style: TextStyle(
-                          fontSize: 50.0,
-                          color: //pref.paleta == '4'
-                              //?
-                              // Theme.of(context).primaryColor,
-                              Colors.white //Colors.black,
-                          )),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Text('Enviar',
+                          style: TextStyle(
+                              fontSize: 50.0,
+                              color: //pref.paleta == '4'
+                                  //?
+                                  // Theme.of(context).primaryColor,
+                                  Colors.white //Colors.black,
+                              )),
+                    ),
+                    Center(
+                      child: Text('SOS',
+                          style: TextStyle(
+                              fontSize: 50.0,
+                              color: //pref.paleta == '4'
+                                  //?
+                                  // Theme.of(context).primaryColor,
+                                  Colors.white //Colors.black,
+                              )),
+                    ),
+                  ],
                 ),
               ),
             ),

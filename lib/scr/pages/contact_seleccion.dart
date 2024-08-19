@@ -104,9 +104,7 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                         List<Widget> listaContact = List.generate(
                             snapshot.data.length,
                             (i) => Contacto(
-                                contacto: snapshot.data[i],
-                                apiProvider: apiProvider,
-                                grupo: grupo));
+                                contacto: snapshot.data[i], grupo: grupo));
                         if (listaContact.length == 0) {
                           hayBusqueda = false;
 
@@ -248,12 +246,11 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
 class Contacto extends StatefulWidget {
   const Contacto({
     required this.contacto,
-    required this.apiProvider,
     required this.grupo,
   });
 
   final ContactoDatos contacto;
-  final AplicacionesProvider apiProvider;
+
   final String grupo;
 
   @override
@@ -263,22 +260,23 @@ class Contacto extends StatefulWidget {
 class _ContactoState extends State<Contacto> {
   @override
   Widget build(BuildContext context) {
-    final bool seleccionado = widget.apiProvider.categoryContact[widget.grupo]!
-        .contains(widget.contacto);
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    bool seleccionado =
+        apiProvider.categoryContact[widget.grupo]!.contains(widget.contacto);
     return GestureDetector(
       child: WidgetContacto(
           contacto: widget.contacto,
           seleccionado:
               seleccionado), //TarjetaContacto(widget: widget, pref: pref),
       onTap: () {
-        if (widget.apiProvider.categoryContact[widget.grupo]!
-            .contains(widget.contacto)) {
+        if (seleccionado) {
           //eliminar
           Provider.of<AplicacionesProvider>(context, listen: false)
               .eliminarContacto(widget.grupo, widget.contacto);
 
           DbTiposAplicaciones.db
               .deleteApi(widget.grupo, widget.contacto.nombre);
+          //seleccionado = false;
         } else {
           //agregar
 
@@ -287,6 +285,7 @@ class _ContactoState extends State<Contacto> {
           final nuevo = new ApiTipos(
               grupo: widget.grupo, nombre: widget.contacto.nombre, tipo: "2");
           DbTiposAplicaciones.db.nuevoTipo(nuevo);
+          // seleccionado = true;
         }
         setState(() {});
       },

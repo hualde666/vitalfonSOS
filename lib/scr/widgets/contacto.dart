@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/providers/provider_pref.dart';
-import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
+
 import 'package:piproy/scr/widgets/avatar_contacto.dart';
 
 class WidgetContacto extends StatelessWidget {
@@ -21,15 +21,15 @@ class WidgetContacto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pref = Provider.of<Preferencias>(context);
-    final bool seleccionado =
-        contacto.telefono == SharedPref().telefonoEmergencia;
+    // final bool seleccionado =
+    //     contacto.telefono == SharedPref().telefonoEmergencia;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       width: double.infinity,
       padding: EdgeInsets.only(left: 4),
       height: 120.0,
       decoration: BoxDecoration(
-          color: contacto.telefono == pref.telefonoEmergencia
+          color: seleccionado
               ? pref.backgroundColor
               : pref.backgroundColor.withOpacity(0.3), //Colors.grey[700],
           borderRadius: BorderRadius.circular(60.0),
