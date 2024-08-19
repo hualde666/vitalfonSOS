@@ -5,6 +5,7 @@ import 'package:piproy/scr/models/contactos_modelo.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
+import 'package:piproy/scr/widgets/contacto.dart';
 
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
 import 'package:provider/provider.dart';
@@ -103,7 +104,7 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                         List<Widget> listaContact = List.generate(
                             snapshot.data.length,
                             (i) => Contacto(
-                                contactoSelec: snapshot.data[i],
+                                contacto: snapshot.data[i],
                                 apiProvider: apiProvider,
                                 grupo: grupo));
                         if (listaContact.length == 0) {
@@ -246,12 +247,12 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
 
 class Contacto extends StatefulWidget {
   const Contacto({
-    required this.contactoSelec,
+    required this.contacto,
     required this.apiProvider,
     required this.grupo,
   });
 
-  final ContactoDatos contactoSelec;
+  final ContactoDatos contacto;
   final AplicacionesProvider apiProvider;
   final String grupo;
 
@@ -262,27 +263,29 @@ class Contacto extends StatefulWidget {
 class _ContactoState extends State<Contacto> {
   @override
   Widget build(BuildContext context) {
-    final pref = Provider.of<Preferencias>(context);
+    final bool seleccionado = widget.apiProvider.categoryContact[widget.grupo]!
+        .contains(widget.contacto);
     return GestureDetector(
-      child: TarjetaContacto(widget: widget, pref: pref),
+      child: WidgetContacto(
+          contacto: widget.contacto,
+          seleccionado:
+              seleccionado), //TarjetaContacto(widget: widget, pref: pref),
       onTap: () {
         if (widget.apiProvider.categoryContact[widget.grupo]!
-            .contains(widget.contactoSelec)) {
+            .contains(widget.contacto)) {
           //eliminar
           Provider.of<AplicacionesProvider>(context, listen: false)
-              .eliminarContacto(widget.grupo, widget.contactoSelec);
+              .eliminarContacto(widget.grupo, widget.contacto);
 
           DbTiposAplicaciones.db
-              .deleteApi(widget.grupo, widget.contactoSelec.nombre);
+              .deleteApi(widget.grupo, widget.contacto.nombre);
         } else {
           //agregar
 
           Provider.of<AplicacionesProvider>(context, listen: false)
-              .agregarContacto(widget.grupo, widget.contactoSelec);
+              .agregarContacto(widget.grupo, widget.contacto);
           final nuevo = new ApiTipos(
-              grupo: widget.grupo,
-              nombre: widget.contactoSelec.nombre,
-              tipo: "2");
+              grupo: widget.grupo, nombre: widget.contacto.nombre, tipo: "2");
           DbTiposAplicaciones.db.nuevoTipo(nuevo);
         }
         setState(() {});
@@ -291,71 +294,71 @@ class _ContactoState extends State<Contacto> {
   }
 }
 
-class TarjetaContacto extends StatelessWidget {
-  const TarjetaContacto({
-    super.key,
-    required this.widget,
-    required this.pref,
-  });
+// class TarjetaContacto extends StatelessWidget {
+//   const TarjetaContacto({
+//     super.key,
+//     required this.widget,
+//     required this.pref,
+//   });
 
-  final Contacto widget;
-  final Preferencias pref;
+//   final Contacto widget;
+//   final Preferencias pref;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      padding: EdgeInsets.only(left: 4),
-      width: double.infinity,
-      height: 120.0,
-      decoration: BoxDecoration(
-          color: widget.apiProvider.categoryContact[widget.grupo]!
-                  .contains(widget.contactoSelec)
-              ? pref.backgroundColor
-              : pref.backgroundColor.withOpacity(0.3), //Colors.grey[700],
-          borderRadius: BorderRadius.circular(60.0),
-          border: Border.all(color: Theme.of(context).primaryColor)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          AvatarContacto(widget.contactoSelec),
-          SizedBox(
-            width: 5,
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                    child: Text(widget.contactoSelec.nombre,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: widget
-                                    .apiProvider.categoryContact[widget.grupo]!
-                                    .contains(widget.contactoSelec)
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.3),
-                            fontSize: 30))),
-                Center(
-                    child: Text(widget.contactoSelec.telefono,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: widget
-                                    .apiProvider.categoryContact[widget.grupo]!
-                                    .contains(widget.contactoSelec)
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.3),
-                            fontSize: 25)))
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+//       padding: EdgeInsets.only(left: 4),
+//       width: double.infinity,
+//       height: 120.0,
+//       decoration: BoxDecoration(
+//           color: widget.apiProvider.categoryContact[widget.grupo]!
+//                   .contains(widget.contactoSelec)
+//               ? pref.backgroundColor
+//               : pref.backgroundColor.withOpacity(0.3), //Colors.grey[700],
+//           borderRadius: BorderRadius.circular(60.0),
+//           border: Border.all(color: Theme.of(context).primaryColor)),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//         children: [
+//           AvatarContacto(widget.contactoSelec),
+//           SizedBox(
+//             width: 5,
+//           ),
+//           Expanded(
+//             child: Column(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               children: [
+//                 Center(
+//                     child: Text(widget.contactoSelec.nombre,
+//                         textAlign: TextAlign.center,
+//                         style: TextStyle(
+//                             color: widget
+//                                     .apiProvider.categoryContact[widget.grupo]!
+//                                     .contains(widget.contactoSelec)
+//                                 ? Theme.of(context).primaryColor
+//                                 : Theme.of(context)
+//                                     .primaryColor
+//                                     .withOpacity(0.3),
+//                             fontSize: 30))),
+//                 Center(
+//                     child: Text(widget.contactoSelec.telefono,
+//                         textAlign: TextAlign.center,
+//                         style: TextStyle(
+//                             color: widget
+//                                     .apiProvider.categoryContact[widget.grupo]!
+//                                     .contains(widget.contactoSelec)
+//                                 ? Theme.of(context).primaryColor
+//                                 : Theme.of(context)
+//                                     .primaryColor
+//                                     .withOpacity(0.3),
+//                             fontSize: 25)))
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

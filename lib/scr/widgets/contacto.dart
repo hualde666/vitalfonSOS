@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/pages/contact_llamada_emergencia.dart';
+import 'package:provider/provider.dart';
+
+import 'package:piproy/scr/models/contactos_modelo.dart';
+
 import 'package:piproy/scr/providers/provider_pref.dart';
 import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
 import 'package:piproy/scr/widgets/avatar_contacto.dart';
-import 'package:provider/provider.dart';
 
 class WidgetContacto extends StatelessWidget {
   const WidgetContacto({
     super.key,
-    required this.widget,
+    required this.contacto,
     required this.seleccionado,
   });
 
-  final Contacto widget;
+  final ContactoDatos contacto;
 
   final bool seleccionado;
 
@@ -20,14 +22,14 @@ class WidgetContacto extends StatelessWidget {
   Widget build(BuildContext context) {
     final pref = Provider.of<Preferencias>(context);
     final bool seleccionado =
-        widget.contacto.telefono == SharedPref().telefonoEmergencia;
+        contacto.telefono == SharedPref().telefonoEmergencia;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       width: double.infinity,
       padding: EdgeInsets.only(left: 4),
       height: 120.0,
       decoration: BoxDecoration(
-          color: widget.contacto.telefono == pref.telefonoEmergencia
+          color: contacto.telefono == pref.telefonoEmergencia
               ? pref.backgroundColor
               : pref.backgroundColor.withOpacity(0.3), //Colors.grey[700],
           borderRadius: BorderRadius.circular(60.0),
@@ -35,7 +37,7 @@ class WidgetContacto extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          AvatarContacto(widget.contacto),
+          AvatarContacto(contacto),
           SizedBox(
             width: 5,
           ),
@@ -45,7 +47,7 @@ class WidgetContacto extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(
-                    child: Text(widget.contacto.nombre,
+                    child: Text(contacto.nombre,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: seleccionado
@@ -55,7 +57,7 @@ class WidgetContacto extends StatelessWidget {
                                     .withOpacity(0.3),
                             fontSize: 30))),
                 Center(
-                    child: Text(widget.contacto.telefono,
+                    child: Text(contacto.telefono,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: seleccionado

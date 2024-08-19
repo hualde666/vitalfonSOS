@@ -157,7 +157,8 @@ class _ContactoState extends State<Contacto> {
     final bool seleccionado =
         widget.contacto.telefono == SharedPref().telefonoEmergencia;
     return GestureDetector(
-      child: WidgetContacto(widget: widget, seleccionado: seleccionado),
+      child:
+          WidgetContacto(contacto: widget.contacto, seleccionado: seleccionado),
       onTap: () {
         if (widget.contacto.telefono != pref.telefonoEmergencia) {
           /// ********* cambio el telefono de emergencia
