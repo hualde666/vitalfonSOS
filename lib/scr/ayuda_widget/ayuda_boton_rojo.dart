@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_encabezado.dart';
 // import 'package:provider/provider.dart';
 
-// import '../providers/provider_pref.dart';
+// import '../providers/provider_SharedPref().dart';
 
 class AyudaBotonRojoPage extends StatelessWidget {
   @override

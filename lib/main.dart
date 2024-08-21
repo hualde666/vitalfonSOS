@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
-import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
 import 'package:piproy/scr/definicion/thema_colores.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 //import 'package:piproy/scr/providers/estado_celular.dart';
-import 'package:piproy/scr/providers/provider_pref.dart';
 
 import 'package:piproy/scr/pages/permisos_bienvenida.dart';
 import 'package:piproy/scr/pages/botonrojo_page.dart';
@@ -18,7 +17,7 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => new Preferencias()),
+      ChangeNotifierProvider(create: (_) => new SharedPref()),
       ChangeNotifierProvider(create: (_) => new ContactosProvider()),
       // ChangeNotifierProvider(create: (_) => new EstadoProvider()),
       ChangeNotifierProvider(create: (_) => new AplicacionesProvider()),

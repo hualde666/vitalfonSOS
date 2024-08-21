@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/pages/desbloqueo.dart';
+
 import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
 
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../providers/provider_pref.dart';
 
 import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/pages/ayuda_nueva.dart';
@@ -22,7 +22,6 @@ class ConfiguracionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pref = Provider.of<Preferencias>(context);
     final colorBloqueo = Colors.black26;
     return SafeArea(
       child: Scaffold(
@@ -71,21 +70,21 @@ class ConfiguracionPage extends StatelessWidget {
               leading: Icon(
                 Icons.contact_phone,
                 size: 35.0,
-                color: pref.modoConfig
+                color: SharedPref().modoConfig
                     ? Theme.of(context).primaryColor
                     : colorBloqueo,
               ),
               title: Text('Establecer destinatarios del mensaje de emergencia',
                   style: TextStyle(
                     fontSize: 25,
-                    color: pref.modoConfig
+                    color: SharedPref().modoConfig
                         ? Theme.of(context).primaryColor
                         : colorBloqueo,
                   )),
               onTap: () {
                 //Navigator.pop(context);
                 // Navigator.pushNamed(context, 'emergiContactos');
-                if (pref.modoConfig) {
+                if (SharedPref().modoConfig) {
                   final String grupo = 'Emergencia';
 
                   if (!apiProvider.contactgrupos.contains(grupo)) {
@@ -111,19 +110,19 @@ class ConfiguracionPage extends StatelessWidget {
               leading: Icon(
                 Icons.phone_forwarded,
                 size: 35.0,
-                color: pref.modoConfig
+                color: SharedPref().modoConfig
                     ? Theme.of(context).primaryColor
                     : colorBloqueo,
               ),
               title: Text('Establecer destinatario de la llamada de emergencia',
                   style: TextStyle(
                     fontSize: 25,
-                    color: pref.modoConfig
+                    color: SharedPref().modoConfig
                         ? Theme.of(context).primaryColor
                         : colorBloqueo,
                   )),
               onTap: () {
-                if (pref.modoConfig) {
+                if (SharedPref().modoConfig) {
                   Provider.of<AplicacionesProvider>(context, listen: false)
                       .tipoSeleccion = 'Emergencia';
                   Navigator.push(
@@ -140,19 +139,19 @@ class ConfiguracionPage extends StatelessWidget {
               leading: Icon(
                 Icons.web_sharp,
                 size: 40.0,
-                color: pref.modoConfig
+                color: SharedPref().modoConfig
                     ? Theme.of(context).primaryColor
                     : colorBloqueo,
               ),
               title: Text('www.vitalfon.com',
                   style: TextStyle(
                     fontSize: 25,
-                    color: pref.modoConfig
+                    color: SharedPref().modoConfig
                         ? Theme.of(context).primaryColor
                         : colorBloqueo,
                   )),
               onTap: () async {
-                if (pref.modoConfig) {
+                if (SharedPref().modoConfig) {
                   Uri url = Uri.parse('https://www.vitalfon.com');
                   await launchUrl(url);
                 }
@@ -167,12 +166,12 @@ class ConfiguracionPage extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(
-              pref.modoConfig ? Icons.lock_open : Icons.lock_outline,
+              SharedPref().modoConfig ? Icons.lock_open : Icons.lock_outline,
               size: 40.0,
               color: Theme.of(context).primaryColor,
             ),
             title: Text(
-                pref.modoConfig
+                SharedPref().modoConfig
                     ? 'Bloquear Configuración'
                     : 'Desbloquear Configuración',
                 style: TextStyle(
@@ -180,10 +179,10 @@ class ConfiguracionPage extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                 )),
             onTap: () {
-              if (pref.modoConfig) {
-                final pref = Provider.of<Preferencias>(context, listen: false);
-                pref.modoConfig = !pref.modoConfig;
-                SharedPref().modoConfig = pref.modoConfig;
+              if (SharedPref().modoConfig) {
+                //
+                SharedPref().modoConfig = !SharedPref().modoConfig;
+                //  SharedPref().modoConfig = SharedPref().modoConfig;
                 // onPress();
               } else {
                 Navigator.push(context,

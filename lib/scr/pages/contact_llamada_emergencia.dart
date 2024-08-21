@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+
 import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
 
 import 'package:piproy/scr/widgets/contacto.dart';
 
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
-import 'package:provider/provider.dart';
 
-import '../providers/provider_pref.dart';
 import '../widgets/header_app.dart';
 
 class ContactLlamadaEmrgencia extends StatefulWidget {
@@ -153,21 +153,23 @@ class Contacto extends StatefulWidget {
 class _ContactoState extends State<Contacto> {
   @override
   Widget build(BuildContext context) {
-    final pref = Provider.of<Preferencias>(context);
+    final pref = Provider.of<SharedPref>(context);
     final bool seleccionado =
-        widget.contacto.telefono == SharedPref().telefonoEmergencia;
+        widget.contacto.telefono == pref.telefonoEmergencia;
     return GestureDetector(
       child:
           WidgetContacto(contacto: widget.contacto, seleccionado: seleccionado),
       onTap: () {
-        if (widget.contacto.telefono != pref.telefonoEmergencia) {
+        if (widget.contacto.telefono != SharedPref().telefonoEmergencia) {
           /// ********* cambio el telefono de emergencia
-          pref.telefonoEmergencia = widget.contacto.telefono;
-          SharedPref().telefonoEmergencia = widget.contacto.telefono;
+          // SharedPref().telefonoEmergencia = widget.contacto.telefono;
+          Provider.of<SharedPref>(context, listen: false).telefonoEmergencia =
+              widget.contacto.telefono;
         } else {
-          pref.eliminarLLamadaEmergencia();
-          pref.telefonoEmergencia = "";
-          SharedPref().telefonoEmergencia = "";
+          // SharedPref().eliminarLLamadaEmergencia();
+          // //    SharedPref().telefonoEmergencia = "";
+          Provider.of<SharedPref>(context, listen: false).telefonoEmergencia =
+              "";
         }
         setState(() {});
       },

@@ -4,13 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:piproy/scr/pages/ayuda.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
-import 'package:piproy/scr/providers/provider_pref.dart';
+import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
 
 import 'package:piproy/scr/widgets/header_app.dart';
-import 'package:provider/provider.dart';
-// import 'package:provider/provider.dart';
-
-// import '../providers/provider_pref.dart';
 
 class AyudaNuevaPage extends StatelessWidget {
   final apiProvider = new AplicacionesProvider();
@@ -169,13 +165,12 @@ class ItemConfig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pref = Provider.of<Preferencias>(context);
     final colorBloqueo = Colors.black26;
     return ListTile(
       leading: Icon(
         icon,
         size: 40.0,
-        color: pref.modoConfig
+        color: SharedPref().modoConfig
             ? Theme.of(context).primaryColor
             : colorBloqueo, //Theme.of(context).primaryColor,
       ),
@@ -183,11 +178,12 @@ class ItemConfig extends StatelessWidget {
           style: TextStyle(
             fontSize: 25,
             fontStyle: FontStyle.italic,
-            color:
-                pref.modoConfig ? Theme.of(context).primaryColor : colorBloqueo,
+            color: SharedPref().modoConfig
+                ? Theme.of(context).primaryColor
+                : colorBloqueo,
           )), //Theme.of(context).primaryColor)),
       onTap: () {
-        if (pref.modoConfig) {
+        if (SharedPref().modoConfig) {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => onPress));
         }

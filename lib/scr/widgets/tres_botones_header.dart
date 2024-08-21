@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/pages/botonrojo_page.dart';
-import 'package:piproy/scr/providers/provider_pref.dart';
-//import 'package:piproy/scr/widgets/boton_amarillo.dart';
 
+import 'package:piproy/scr/pages/botonrojo_page.dart';
 import 'package:piproy/scr/widgets/boton_verde.dart';
-import 'package:provider/provider.dart';
 
 Widget tresBotonesHeader(
   BuildContext context,
@@ -28,7 +25,7 @@ Widget tresBotonesHeader(
 botonHomeHeader(BuildContext context, String pagina) {
   double width = MediaQuery.of(context).size.width;
   //double height = MediaQuery.of(context).size.height;
-  final pref = Provider.of<Preferencias>(context);
+
   double ancho = 100;
   double alto = 100;
   double font = 20;
@@ -67,9 +64,9 @@ botonHomeHeader(BuildContext context, String pagina) {
               offset: Offset(0, 3),
             ),
           ],
-          color: //pref.paleta == '4'
-              pref.backgroundColor,
-          border: Border.all(color: pref.backgroundColor),
+          color: //SharedPref().paleta == '4'
+              Color.fromARGB(255, 117, 149, 133),
+          border: Border.all(color: Color.fromARGB(255, 117, 149, 133)),
           //  : Colors.green[900],
           borderRadius: BorderRadius.all(Radius.circular(100))),
       //     border:

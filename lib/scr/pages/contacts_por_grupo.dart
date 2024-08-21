@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
+import 'package:provider/provider.dart';
 import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/pages/contact_seleccion.dart';
@@ -7,10 +9,6 @@ import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/widgets/contactos_card.dart';
 
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
-
-import 'package:provider/provider.dart';
-
-import '../providers/provider_pref.dart';
 
 class ContactsPorGrupoPage extends StatefulWidget {
   @override
@@ -57,7 +55,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
 
     final grupo = apiProvider.tipoSeleccion;
-    final pref = Provider.of<Preferencias>(context);
+
     Future<List<Widget>> obtenerListaGrupo(String grupo) async {
       if (_searchController.text.isNotEmpty) {
         return List.generate(
@@ -76,10 +74,14 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
           return List.generate(
               lista.length,
               (i) => (grupo != 'Todos')
-                  ? TarjetaContacto2(context, lista[i], true && pref.modoConfig,
-                      true && pref.modoConfig, 'MPA3 Todas')
-                  : TarjetaContacto2(context, lista[i], true && pref.modoConfig,
-                      false, 'MPA3 Todas'));
+                  ? TarjetaContacto2(
+                      context,
+                      lista[i],
+                      true && SharedPref().modoConfig,
+                      true && SharedPref().modoConfig,
+                      'MPA3 Todas')
+                  : TarjetaContacto2(context, lista[i],
+                      true && SharedPref().modoConfig, false, 'MPA3 Todas'));
         }
       }
       return [];
@@ -100,11 +102,11 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
                 // snapshot contiene lista de displayname de los contactos por grupo
 
                 return Container(
-                  padding: pref.modoConfig
+                  padding: SharedPref().modoConfig
                       ? EdgeInsets.only(bottom: 50)
                       : EdgeInsets.only(bottom: 2),
                   child: ListView(
-                    padding: pref.modoConfig
+                    padding: SharedPref().modoConfig
                         ? EdgeInsets.only(bottom: 200)
                         : EdgeInsets.only(bottom: 2),
                     children: snapshot.data,
@@ -133,7 +135,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
           }),
       //  resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: (grupo != 'Todos' && pref.modoConfig)
+      floatingActionButton: (grupo != 'Todos' && SharedPref().modoConfig)
           ?
           // BotonFlotante(pagina: 'grupoContact'),
           FloatingActionButton.extended(

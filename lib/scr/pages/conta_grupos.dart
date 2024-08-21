@@ -5,19 +5,18 @@ import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/pages/contacts_por_grupo.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
+import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
-
-import '../providers/provider_pref.dart';
 
 class ContactsGruposPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     final List<String> listaGrupos = apiProvider.contactgrupos;
-    final pref = Provider.of<Preferencias>(context);
+
     return SafeArea(
         child: Scaffold(
       appBar: headerApp(context, 'Grupos de Contactos', Text(''), 0.0, true,
@@ -34,7 +33,7 @@ class ContactsGruposPage extends StatelessWidget {
             }),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: pref.modoConfig
+      floatingActionButton: SharedPref().modoConfig
           ? FloatingActionButton.extended(
               heroTag: "agregar",
               icon: Icon(
@@ -58,7 +57,6 @@ class ContactsGruposPage extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
     double ancho = 240;
-    final pref = Provider.of<Preferencias>(context);
 
     if (width <= 320) {
       ancho = 200;
@@ -67,7 +65,7 @@ class ContactsGruposPage extends StatelessWidget {
         onLongPress: () {
           /// Cambiar nombre de grupo de contacto
           ///
-          if (grupo != 'Todos' && pref.modoConfig) {
+          if (grupo != 'Todos' && SharedPref().modoConfig) {
             editarTipo(context, grupo);
           }
         },
@@ -75,10 +73,10 @@ class ContactsGruposPage extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
           height: 70,
           decoration: BoxDecoration(
-              color: pref.backgroundColor,
+              color: Color.fromARGB(255, 117, 149, 133),
               borderRadius: BorderRadius.circular(60.0),
               border: Border.all(color: Theme.of(context).primaryColor)),
-          child: grupo != 'Todos' && pref.modoConfig
+          child: grupo != 'Todos' && SharedPref().modoConfig
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -144,7 +142,7 @@ class ContactsGruposPage extends StatelessWidget {
                   onTap: () {
                     Provider.of<AplicacionesProvider>(context, listen: false)
                         .tipoSeleccion = grupo;
-                    // pref.modoConfig
+                    // SharedPref().modoConfig
                     //     ?
                     Navigator.push(
                       context,

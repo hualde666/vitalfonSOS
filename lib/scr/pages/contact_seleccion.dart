@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/models/contactos_modelo.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
-
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/contacto.dart';
-
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
-import 'package:provider/provider.dart';
-
-import '../providers/provider_pref.dart';
-import '../widgets/avatar_contacto.dart';
 
 class SelectContactsPage extends StatefulWidget {
   @override
@@ -73,9 +68,8 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    // final apiProvider = Provider.of<AplicacionesProvider>(context);
 
-    final grupo = apiProvider.tipoSeleccion;
     // final listaGrupo = generarLista(
     //     apiProvider.categoryContact[grupo], contactosProvaide.listaContactos);
 
@@ -104,7 +98,8 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                         List<Widget> listaContact = List.generate(
                             snapshot.data.length,
                             (i) => Contacto(
-                                contacto: snapshot.data[i], grupo: grupo));
+                                contacto: snapshot.data[i],
+                                grupo: 'Emergencia'));
                         if (listaContact.length == 0) {
                           hayBusqueda = false;
 
@@ -261,22 +256,35 @@ class _ContactoState extends State<Contacto> {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    bool seleccionado =
-        apiProvider.categoryContact[widget.grupo]!.contains(widget.contacto);
+    final _contacto = new ContactoDatos(
+      'nohay',
+      '',
+      '',
+      null,
+      '',
+    );
+    final lista = apiProvider.categoryContact['Emergencia'];
+    final seleccionado = lista!.firstWhere(
+        (element) => element.nombre == widget.contacto.nombre,
+        orElse: () => _contacto);
+    bool estaSeleccionado = true;
+    if (seleccionado.nombre == "nohay") {
+      estaSeleccionado = false;
+    }
     return GestureDetector(
       child: WidgetContacto(
           contacto: widget.contacto,
           seleccionado:
-              seleccionado), //TarjetaContacto(widget: widget, pref: pref),
+              estaSeleccionado), //TarjetaContacto(widget: widget, pref: pref),
       onTap: () {
-        if (seleccionado) {
+        if (estaSeleccionado) {
           //eliminar
           Provider.of<AplicacionesProvider>(context, listen: false)
               .eliminarContacto(widget.grupo, widget.contacto);
 
           DbTiposAplicaciones.db
               .deleteApi(widget.grupo, widget.contacto.nombre);
-          //seleccionado = false;
+          estaSeleccionado = false;
         } else {
           //agregar
 
@@ -285,7 +293,7 @@ class _ContactoState extends State<Contacto> {
           final nuevo = new ApiTipos(
               grupo: widget.grupo, nombre: widget.contacto.nombre, tipo: "2");
           DbTiposAplicaciones.db.nuevoTipo(nuevo);
-          // seleccionado = true;
+          estaSeleccionado = true;
         }
         setState(() {});
       },
@@ -313,8 +321,8 @@ class _ContactoState extends State<Contacto> {
 //       decoration: BoxDecoration(
 //           color: widget.apiProvider.categoryContact[widget.grupo]!
 //                   .contains(widget.contactoSelec)
-//               ? pref.backgroundColor
-//               : pref.backgroundColor.withOpacity(0.3), //Colors.grey[700],
+//               ? SharedPref().backgroundColor
+//               : SharedPref().backgroundColor.withOpacity(0.3), //Colors.grey[700],
 //           borderRadius: BorderRadius.circular(60.0),
 //           border: Border.all(color: Theme.of(context).primaryColor)),
 //       child: Row(

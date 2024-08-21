@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 
-// import 'package:piproy/scr/providers/provider_pref.dart';
+// import 'package:piproy/scr/providers/provider_SharedPref().dart';
 import '../widgets/parrafos_ayuda.dart';
 
 class AyudaIntroduccionPage extends StatelessWidget {

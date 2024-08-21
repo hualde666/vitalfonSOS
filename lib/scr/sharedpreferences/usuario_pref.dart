@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPref {
+class SharedPref extends ChangeNotifier {
   static final SharedPref _instancia = new SharedPref._internal();
   factory SharedPref() {
     return _instancia;
@@ -27,7 +27,7 @@ class SharedPref {
     _telefonoEmergencia = nuevoTelefono;
 
     _pref.setString('telefonoEmergencia', nuevoTelefono);
-    //notifyListeners();
+    notifyListeners();
   }
 
   String get telefonoEmergencia {
@@ -46,7 +46,7 @@ class SharedPref {
   set modoConfig(bool modo) {
     _modoConfig = modo;
     _pref.setBool('modoconfig', modo);
-    // notifyListeners();
+    notifyListeners();
   }
 
   bool get instalado {

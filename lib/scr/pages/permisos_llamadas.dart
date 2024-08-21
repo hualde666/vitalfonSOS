@@ -5,7 +5,8 @@ import 'package:piproy/scr/pages/configuracion_page.dart';
 // import 'package:provider/provider.dart';
 
 import 'package:permission_handler/permission_handler.dart';
-import '../sharedpreferences/usuario_pref.dart';
+import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
+
 import '../widgets/logo_header.dart';
 
 class LLamadasPermisos extends StatefulWidget {

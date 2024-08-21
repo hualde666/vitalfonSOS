@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
-import 'package:provider/provider.dart';
-
-import '../providers/provider_pref.dart';
 
 class Desbloqueo extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -95,12 +92,10 @@ class Desbloqueo extends StatelessWidget {
                               backgroundColor: Color.fromRGBO(249, 75, 11, 1)),
                           onPressed: () {
                             if (validaPasword()) {
-                              final pref = Provider.of<Preferencias>(context,
-                                  listen: false);
-                              pref.modoConfig = !pref.modoConfig;
+                              SharedPref().modoConfig =
+                                  !SharedPref().modoConfig;
 
                               Navigator.of(context).pop();
-                              SharedPref().modoConfig = pref.modoConfig;
                             }
                           },
                           child: Text(

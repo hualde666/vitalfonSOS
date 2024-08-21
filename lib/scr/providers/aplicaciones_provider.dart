@@ -98,7 +98,10 @@ class AplicacionesProvider with ChangeNotifier {
 
     return lista;
   }
+  // bool get contactoEnLista(ContactoDatos contacto) {
 
+  //   return true;
+  // }
   ///********************************** */
 //   List<String> get apitiposMenu {
 // // lista

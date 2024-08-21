@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/providers/contactos_provider.dart';
-//import 'package:piproy/scr/widgets/avatar_contacto.dart';
-import 'package:piproy/scr/widgets/header_app.dart';
-import 'package:provider/provider.dart';
 
-import '../providers/provider_pref.dart';
+import 'package:piproy/scr/widgets/header_app.dart';
 
 class MostrarContacto extends StatefulWidget {
   @override
@@ -29,7 +27,7 @@ class _MostrarContactoState extends State<MostrarContacto> {
 
   Widget fichaContacto(ContactoDatos _contact) {
     // List<Widget> listaPhone = creaListaDatos(_contact);
-    final pref = Provider.of<Preferencias>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -38,7 +36,7 @@ class _MostrarContactoState extends State<MostrarContacto> {
             width: 160,
             // padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
-                color: pref.backgroundColor,
+                color: Color.fromARGB(255, 117, 149, 133),
                 borderRadius: BorderRadius.circular(100.0),
                 border: Border.all(color: Theme.of(context).primaryColor)),
             child: _contact.avatar!.isEmpty
@@ -59,7 +57,6 @@ class _MostrarContactoState extends State<MostrarContacto> {
   }
 
   List<Widget> creaListaDatos(ContactoDatos _contact) {
-    final pref = Provider.of<Preferencias>(context);
     List<Widget> lista = [
       SizedBox(
         height: 10,
@@ -73,7 +70,7 @@ class _MostrarContactoState extends State<MostrarContacto> {
         // width: 160,
         // padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
-            color: pref.backgroundColor,
+            color: Color.fromARGB(255, 117, 149, 133),
             borderRadius: BorderRadius.circular(100.0),
             border: Border.all(color: Theme.of(context).primaryColor)),
         child: // _contact.avatar!.isEmpty

@@ -67,10 +67,10 @@ class AyudaConfigurarPage extends StatelessWidget {
                   )),
 
               // onTap: () {
-              //   if (pref.modoConfig) {
+              //   if (SharedPref().modoConfig) {
               //     final pref = Provider.of<Preferencias>(context, listen: false);
-              //     pref.modoConfig = !pref.modoConfig;
-              //     SharedPref().modoConfig = pref.modoConfig;
+              //     SharedPref().modoConfig = !SharedPref().modoConfig;
+              //     SharedPref().modoConfig = SharedPref().modoConfig;
               //     // onPress();
               //   } else {
               //     Navigator.push(context,

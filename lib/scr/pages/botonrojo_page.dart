@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart';
+
+import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
+
 import 'package:provider/provider.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +13,6 @@ import 'package:piproy/scr/pages/contacts_por_grupo.dart';
 import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
-import 'package:piproy/scr/providers/provider_pref.dart';
 
 import '../funciones/url_funciones.dart';
 import '../models/api_tipos.dart';
@@ -184,7 +185,6 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
 }
 
 conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
-  final pref = Provider.of<Preferencias>(context);
   // double width = MediaQuery.of(context).size.width / 3;
   double height = (MediaQuery.of(context).size.height * 0.80);
   return SingleChildScrollView(
@@ -208,7 +208,7 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
 
                 await mandarSMS(listaE);
 
-                await llamar(pref.telefonoEmergencia);
+                await llamar(SharedPref().telefonoEmergencia);
                 await Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -238,7 +238,7 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
                       child: Text('Enviar',
                           style: TextStyle(
                               fontSize: 50.0,
-                              color: //pref.paleta == '4'
+                              color: //SharedPref().paleta == '4'
                                   //?
                                   // Theme.of(context).primaryColor,
                                   Colors.white //Colors.black,
@@ -248,7 +248,7 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
                       child: Text('SOS',
                           style: TextStyle(
                               fontSize: 50.0,
-                              color: //pref.paleta == '4'
+                              color: //SharedPref().paleta == '4'
                                   //?
                                   // Theme.of(context).primaryColor,
                                   Colors.white //Colors.black,
@@ -279,7 +279,6 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
 }
 
 sinListaEmergenia(BuildContext context) {
-  final pref = Provider.of<Preferencias>(context);
   double height = (MediaQuery.of(context).size.height * 0.70);
 
   return SingleChildScrollView(
@@ -297,7 +296,7 @@ sinListaEmergenia(BuildContext context) {
               'Debe registrar sus contactos de emergencia para poder notificar la emergencia',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: // pref.paleta == '4'
+                color: // SharedPref().paleta == '4'
                     //?
                     Theme.of(context).primaryColor,
                 //    : Colors.white,
@@ -308,7 +307,7 @@ sinListaEmergenia(BuildContext context) {
           SizedBox(
             height: 50.0,
           ),
-          pref.modoConfig
+          SharedPref().modoConfig
               ? ElevatedButton(
                   onPressed: () {
                     final String grupo = 'Emergencia';

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:piproy/scr/models/contactos_modelo.dart';
-
-import 'package:piproy/scr/providers/provider_pref.dart';
 
 import 'package:piproy/scr/widgets/avatar_contacto.dart';
 
@@ -20,7 +17,6 @@ class WidgetContacto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pref = Provider.of<Preferencias>(context);
     // final bool seleccionado =
     //     contacto.telefono == SharedPref().telefonoEmergencia;
     return Container(
@@ -30,8 +26,9 @@ class WidgetContacto extends StatelessWidget {
       height: 120.0,
       decoration: BoxDecoration(
           color: seleccionado
-              ? pref.backgroundColor
-              : pref.backgroundColor.withOpacity(0.3), //Colors.grey[700],
+              ? Color.fromARGB(255, 117, 149, 133)
+              : Color.fromARGB(255, 117, 149, 133)
+                  .withOpacity(0.3), //Colors.grey[700],
           borderRadius: BorderRadius.circular(60.0),
           border: Border.all(color: Theme.of(context).primaryColor)),
       child: Row(

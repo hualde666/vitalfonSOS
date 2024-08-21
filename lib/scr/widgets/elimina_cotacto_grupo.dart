@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/models/contactos_modelo.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
-import 'package:piproy/scr/providers/provider_pref.dart';
+import 'package:piproy/scr/sharedpreferences/usuario_pref.dart';
+
 import 'package:provider/provider.dart';
 
 Future<dynamic> eliminarContactoGrupo(
@@ -27,11 +28,9 @@ Future<dynamic> eliminarContactoGrupo(
             height: 50,
             child: ElevatedButton(
                 onPressed: () {
-                  final pref =
-                      Provider.of<Preferencias>(context, listen: false);
                   if (grupo == 'Emergencia' &&
-                      pref.telefonoEmergencia == contacto.nombre) {
-                    pref.eliminarLLamadaEmergencia();
+                      SharedPref().telefonoEmergencia == contacto.nombre) {
+                    SharedPref().eliminarLLamadaEmergencia();
                   }
                   DbTiposAplicaciones.db
                       .deleteApi(grupo, contacto.nombre); //elimina api de BD
